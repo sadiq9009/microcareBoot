@@ -8,9 +8,9 @@ function Employees() {
   const [employees,setEmployees]=useState([])
 
   useEffect(()=>{
-   axios.get('http://localhost:2020/reactemployees',{headers:{
+   axios.get('http://localhost:1000/reactemployees',{headers:{
 'Authorization':'Basic bWljcm9jYXJlOjEyM2FBYmM='
-   }}).then(
+   }},[employees]).then(
      resp =>
 
      {
@@ -23,18 +23,18 @@ function Employees() {
 
     const deleteemployee=(event)=>{
         event.preventDefault();
-        let url='http://localhost:2020/reactdeleteemployee/'.concat(event.currentTarget.getAttribute("value"));
+        let url='http://localhost:1000/reactdeleteemployee/'.concat(event.currentTarget.getAttribute("value"));
         console.log(url)
         axios.get(url,{headers:{
             'Authorization':'Basic bWljcm9jYXJlOjEyM2FBYmM='}}).then(resp1 =>{
-                axios.get('http://localhost:8080/reactemployees',{headers:{
+                axios.get('http://localhost:1000/reactemployees',{headers:{
 'Authorization':'Basic bWljcm9jYXJlOjEyM2FBYmM='
    }}).then(
      resp =>
 
      {
-      console.log(resp.data) 
-      setEmployees(resp.data)}
+      console.log(resp1.data) 
+      setEmployees(resp1.data)}
    )}
 
             )
@@ -43,7 +43,27 @@ function Employees() {
     const updateemployee=(employee) =>{
         navigate('/updateemployee',{state:{employee}})
 
-    }
+  }
+  
+  const downloadfile = (event) => {
+    event.preventDefault();
+    let url='http://localhost:1000/reactdownloadfile/'.concat(event.currentTarget.getAttribute("value"));
+    console.log(url)
+    axios.get(url,{headers:{
+        'Authorization':'Basic bWljcm9jYXJlOjEyM2FBYmM='}}).then(resp1 =>{
+            axios.get('http://localhost:1000/reactemployees',{headers:{
+'Authorization':'Basic bWljcm9jYXJlOjEyM2FBYmM='
+}}).then(
+ resp =>
+
+ {
+    console.log(resp1.data) 
+    //setEmployees(resp1.data)
+  setEmployees(resp.data)}
+)}
+
+        )
+  }
 
 
 
@@ -66,6 +86,7 @@ function Employees() {
       <th scope="col">Phone</th>
       <th scope="col">Delete</th>
       <th scope="col">Edit</th>
+      <th scope='col'>Download</th>        
     </tr>
   </thead>
   <tbody>
@@ -79,7 +100,8 @@ function Employees() {
       <td>{employee.email}</td>
       <td>{employee.phone}</td>
       <td><a href="#" value={employee.email} onClick={(e)=>deleteemployee(e)}>delete</a></td>
-       <td><a href="##" onClick={() => updateemployee(employee)}>edit</a></td>
+       <td><a href="#" onClick={() => updateemployee(employee)}>edit</a></td>
+       <td><a href="#" value={employee.employee_id} onClick={(e)=> downloadfile(e)}>Download</a></td>
        
     </tr>
    )

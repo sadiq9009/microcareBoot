@@ -14,7 +14,7 @@ const formdata=new FormData()
 formdata.append('employee_id',employeeId)
 formdata.append('file_content',selectedfile)
 
-axios.post('http://localhost:2020/reactuploadfile',formdata,{headers:{
+axios.post('http://localhost:1000/reactuploadfile',formdata,{headers:{
     'Authorization':'Basic bWljcm9jYXJlOjEyM2FBYmM=',
     'Content-Type':'multipart/form-data'
        }}).then(resp =>

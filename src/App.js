@@ -16,7 +16,7 @@ function App() {
   const [managerId,setManagerId]=useState("")
 const [message,setMessage]=useState("") 
   const handleSubmit =() =>{
-   axios.post('http://localhost:2020/reactemployees',{
+   axios.post('http://localhost:1000/reactemployees',{
 first_name:firstName,
 last_name:lastName,
 email:email,

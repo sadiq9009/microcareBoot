@@ -37,7 +37,7 @@ function UpdateEmployee({employee}) {
 const [message,setMessage]=useState("") 
 
   const handleSubmit =() =>{
-   axios.post('http://localhost:2020/reactupdateemployee',{
+   axios.post('http://localhost:1000/reactupdateemployee',{
        employee_id:employeeId,
 first_name:firstName,
 last_name:lastName,
